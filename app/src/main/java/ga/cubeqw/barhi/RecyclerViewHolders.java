@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerViewHolders extends RecyclerView.ViewHolder {
-    TextView value, date;
+    TextView value, date, count;
     ImageView code;
 
     public RecyclerViewHolders(View itemView) {
@@ -16,5 +16,6 @@ public class RecyclerViewHolders extends RecyclerView.ViewHolder {
         value = itemView.findViewById(R.id.value);
         date = itemView.findViewById(R.id.date);
         code = itemView.findViewById(R.id.code);
+        count = itemView.findViewById(R.id.counter);
     }
 }

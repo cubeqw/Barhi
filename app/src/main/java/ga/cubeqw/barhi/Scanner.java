@@ -6,12 +6,18 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -22,6 +28,7 @@ import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.zxing.Result;
@@ -35,7 +42,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Scanner extends AppCompatActivity {
+public class Scanner extends Activity {
     SharedPreferences sPref;
     private CodeScanner mCodeScanner;
     String json;
@@ -75,7 +82,14 @@ public class Scanner extends AppCompatActivity {
                         list.add(link);
                         json = gson.toJson(list);
                         save("history", json);
-                        Toast.makeText(getApplicationContext(), result.toString(), Toast.LENGTH_SHORT).show();
+                        MediaPlayer mPlayer = MediaPlayer.create(Scanner.this, R.raw.beep);
+                        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            v.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE));
+                        }
+                        mPlayer.start();
+                        Snackbar snackbar = Snackbar.make(scannerView,result.toString(), Snackbar.LENGTH_SHORT);
+                        snackbar.show();
                     }
                 });
             }
@@ -93,10 +107,9 @@ public class Scanner extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 123) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Camera permission granted", Toast.LENGTH_LONG).show();
                 startScanning();
             } else {
-                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Разрешение камеры отклонено", Toast.LENGTH_LONG).show();
             }
         }
     }

@@ -39,6 +39,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerViewHolders>{
             holder.code.setImageBitmap(bitmap);
             holder.value.setText(itemList.get(position).getValue());
             holder.date.setText(itemList.get(position).getDate());
+            holder.count.setText(String.valueOf(position+1));
         }
 
     @Override
