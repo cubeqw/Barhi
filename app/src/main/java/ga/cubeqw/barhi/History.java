@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.budiyev.android.codescanner.CodeScanner;
@@ -38,6 +39,7 @@ public class History extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         json = load("history");
         Log.d("qqq", json);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);

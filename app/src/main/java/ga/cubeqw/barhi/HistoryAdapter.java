@@ -33,6 +33,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerViewHolders>{
 
     @Override
     public void onBindViewHolder(RecyclerViewHolders holder, int position) {
+        String colors []={"#FF1744", "#651FFF", "#2979FF", "#00B0FF", "#1DE9B6", "#76FF03", "#FFEA00", "#FF3D00", "#5D4037", "#212121"};
         EAN13 code = new EAN13(itemList.get(position).getValue());
         code.setData(itemList.get(position).getValue());
         Bitmap bitmap = code.getBitmap(680, 300);
@@ -40,6 +41,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerViewHolders>{
             holder.value.setText(itemList.get(position).getValue());
             holder.date.setText(itemList.get(position).getDate());
             holder.count.setText(String.valueOf(position+1));
+            int color = position%10;
+            holder.card.setCardBackgroundColor(Color.parseColor(colors[color]));
         }
 
     @Override

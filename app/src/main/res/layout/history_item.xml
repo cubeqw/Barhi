@@ -13,6 +13,7 @@
         android:layout_gravity="center"
         android:layout_margin="7dp"
         android:padding="7dp"
+        android:id="@+id/card"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,6 +25,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textSize="25dp"
+                android:textColor="@color/white"
                 android:id="@+id/counter"
                 android:layout_weight="10"/>
             <LinearLayout
@@ -35,18 +37,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/date"
+        android:textColor="@color/white"
         android:gravity="center"
         android:layout_margin="5dp"/>
                 <ImageView
                     android:id="@+id/code"
                     android:layout_width="match_parent"
                     android:layout_height="160dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="@integer/material_motion_duration_long_1"
                     android:layout_gravity="center" />
                 <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/value"
-        android:gravity="center"
+                    android:textColor="@color/white"
+                    android:gravity="center"
         android:layout_margin="5dp"/>
             </LinearLayout>
         </LinearLayout>

@@ -20,6 +20,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +55,7 @@ public class Scanner extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
         json = load("history");
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         GsonBuilder builder = new GsonBuilder();
         gson = builder.create();
         if(!json.equals("")){
@@ -76,7 +78,8 @@ public class Scanner extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Date date = new Date();
+                        if(result.getBarcodeFormat().name().equals("EAN_13")){
+                            Date date = new Date();
                         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy, hh:mm");
                         Barcode link = new Barcode(result.toString(), format.format(date));
                         list.add(link);
@@ -89,7 +92,12 @@ public class Scanner extends Activity {
                         }
                         mPlayer.start();
                         Snackbar snackbar = Snackbar.make(scannerView,result.toString(), Snackbar.LENGTH_SHORT);
-                        snackbar.show();
+                        snackbar.show();}
+                        else{
+                            Snackbar snackbar = Snackbar.make(scannerView,"Неверный формат", Snackbar.LENGTH_SHORT);
+                            snackbar.show();
+                            mCodeScanner.startPreview();
+                        }
                     }
                 });
             }
