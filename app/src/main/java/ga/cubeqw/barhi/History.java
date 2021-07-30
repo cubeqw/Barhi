@@ -1,21 +1,18 @@
 package ga.cubeqw.barhi;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
-import com.budiyev.android.codescanner.CodeScanner;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -55,7 +52,12 @@ public class History extends Activity {
         }
         adapter = new HistoryAdapter(list);
         recyclerView.setAdapter(adapter);
-        Log.d("qqq", adapter.getItemCount()+"");
+    }
+    void edit(String s) {
+        sPref = getSharedPreferences("sPref", MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putString("history", s);
+        ed.apply();
     }
     String load(String s) {
         sPref = getSharedPreferences("sPref", MODE_PRIVATE);

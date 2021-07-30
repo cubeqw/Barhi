@@ -43,6 +43,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerViewHolders>{
             holder.count.setText(String.valueOf(position+1));
             int color = position%10;
             holder.card.setCardBackgroundColor(Color.parseColor(colors[color]));
+
         }
 
     @Override
