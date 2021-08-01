@@ -44,21 +44,17 @@ public class History extends Activity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
+
         if(!json.equals("")){
             GsonBuilder builder = new GsonBuilder();
             gson = builder.create();
             barcodes=gson.fromJson(json, Barcode[].class);
             list = Stream.of(barcodes).collect(Collectors.toCollection(ArrayList::new));
         }
-        adapter = new HistoryAdapter(list);
+        adapter = new HistoryAdapter(list, getApplicationContext());
         recyclerView.setAdapter(adapter);
     }
-    void edit(String s) {
-        sPref = getSharedPreferences("sPref", MODE_PRIVATE);
-        SharedPreferences.Editor ed = sPref.edit();
-        ed.putString("history", s);
-        ed.apply();
-    }
+
     String load(String s) {
         sPref = getSharedPreferences("sPref", MODE_PRIVATE);
         return sPref.getString(s, "");
