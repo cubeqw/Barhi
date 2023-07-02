@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0"
+    android:testOnly="false"
+    >
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.hardware.camera.any" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -25,7 +28,9 @@
         android:theme="@style/Theme.Barhi" >
         <activity
             android:name="ga.cubeqw.barhi.History"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:exported="true"
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ga.cubeqw.barhi.Scanner" />
