@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="ga.cubeqw.barhi"
     android:versionCode="1"
     android:versionName="1.0" >
     <uses-permission android:name="android.permission.CAMERA" />
@@ -10,6 +9,8 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-feature android:name="android.hardware.camera.flash" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -24,13 +25,15 @@
         android:theme="@style/Theme.Barhi" >
         <activity
             android:name="ga.cubeqw.barhi.History"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ga.cubeqw.barhi.Scanner" />
+        </activity>
         <activity
             android:name="ga.cubeqw.barhi.Scanner"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="ga.cubeqw.barhi.MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,7 +44,8 @@
             android:name="ga.cubeqw.barhi.TileService"
             android:icon="@drawable/scanner"
             android:label="Сканер"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" >
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>

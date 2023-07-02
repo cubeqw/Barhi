@@ -17,9 +17,9 @@ public class TileService extends android.service.quicksettings.TileService {
 
     @Override
     public void onClick() {
-        Context context=this;
+        Context context = this;
         if (!isSecure()) {
-            Intent intent=new Intent(context, Scanner.class);
+            Intent intent = new Intent(context, Scanner.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else {
@@ -27,7 +27,7 @@ public class TileService extends android.service.quicksettings.TileService {
             unlockAndRun(new Runnable() {
                 @Override
                 public void run() {
-                    Intent intent=new Intent(context, Scanner.class);
+                    Intent intent = new Intent(context, Scanner.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }

@@ -10,14 +10,17 @@ public class Barcode {
     @SerializedName("date")
     @Expose
     String date;
+
     public Barcode(String value, String date) {
         this.value = value;
         this.date = date;
     }
-    public String getValue(){
+
+    public String getValue() {
         return value;
     }
-    public String getDate(){
+
+    public String getDate() {
         return date;
     }
 

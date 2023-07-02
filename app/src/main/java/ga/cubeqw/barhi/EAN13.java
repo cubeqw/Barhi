@@ -16,7 +16,7 @@ public class EAN13 {
 
     }
 
-    public EAN13(String data){
+    public EAN13(String data) {
         this.data = data;
     }
 
@@ -50,10 +50,9 @@ public class EAN13 {
     }
 
 
-
     public byte[] encode() {
 
-        if(isVaildBarcodeData() == false) {
+        if (!isVaildBarcodeData()) {
             android.util.Log.e(TAG, "invalid data length!!");
             return null;
         }
@@ -68,20 +67,20 @@ public class EAN13 {
         byte[] patterns = EAN13Constant.FIRST_DIGIT[first_num];
 
         pos += appendData(EAN13Constant.START_PATTERN, buffer, pos, "START CODE");
-        for(int i=1; i<len; i++) {
-            int num = Integer.parseInt(data.substring(i, i+1));
+        for (int i = 1; i < len; i++) {
+            int num = Integer.parseInt(data.substring(i, i + 1));
 
-            byte code = patterns[(i-1)];
+            byte code = patterns[(i - 1)];
 
-            if(code == EAN13Constant.L_CODE) {
+            if (code == EAN13Constant.L_CODE) {
                 pos += appendData(EAN13Constant.L_CODE_PATTERN[num], buffer, pos, "L code based number");
-            } else if(code ==EAN13Constant.G_CODE) {
+            } else if (code == EAN13Constant.G_CODE) {
                 pos += appendData(EAN13Constant.G_CODE_PATTERN[num], buffer, pos, "G code based number");
             } else { // R-code
                 pos += appendData(EAN13Constant.R_CODE_PATTERN[num], buffer, pos, "R code based number");
             }
 
-            if(i == 6) {
+            if (i == 6) {
                 pos += appendData(EAN13Constant.MIDDLE_PATTERN, buffer, pos, "MIDDLE CODE");
             }
         }
@@ -92,11 +91,10 @@ public class EAN13 {
     }
 
 
-
-    public Bitmap getBitmap( int width, int height) {
+    public Bitmap getBitmap(int width, int height) {
         byte[] code = encode();
 
-        if(code == null) {
+        if (code == null) {
             return null;
         }
         int inputWidth = code.length;
@@ -130,7 +128,7 @@ public class EAN13 {
                 //canvas.drawRect(new Rect(outputX, 0, multiple, outputHeight), barPaint);
                 //canvas.drawText(text, x, y, paint)
                 //float left, float top, float right, float bottom
-                canvas.drawRect(outputX, 0, (outputX+multiple), outputHeight, barPaint);
+                canvas.drawRect(outputX, 0, (outputX + multiple), outputHeight, barPaint);
             }
         }
         return bitmap;
@@ -141,26 +139,22 @@ public class EAN13 {
     }
 
     public boolean isVaildBarcodeData() {
-        if(data == null) {
+        if (data == null) {
             return false;
         }
 
-        if(data.length() != 13) {
+        if (data.length() != 13) {
             return false;
         }
 
-        if(checkNumber(data) == false) {
-            return false;
-        }
-
-        return true;
+        return checkNumber(data);
     }
 
 
     private static boolean checkNumber(String data) {
         int len = data.length();
 
-        for(int i=0; i<len; i++ ) {
+        for (int i = 0; i < len; i++) {
             char ch = data.charAt(i);
             if (ch < '0' || ch > '9') {
                 //if((ch < 48)  || (ch > 57)) {
@@ -175,7 +169,7 @@ public class EAN13 {
 
         System.arraycopy(src, 0, dst, pos, src.length);
 
-        if(debugdata != null)  {
+        if (debugdata != null) {
             printByteArr(debugdata, src);
         }
 
@@ -183,15 +177,15 @@ public class EAN13 {
     }
 
     private void printByteArr(String msg, byte[] buff) {
-        if(buff == null) {
+        if (buff == null) {
             return;
         }
 
         StringBuilder sb = new StringBuilder();
-        for(byte by: buff) {
+        for (byte by : buff) {
             sb.append(by);
         }
-        android.util.Log.e(TAG, "char: " + msg + " barcode weight: " + sb.toString());
+        android.util.Log.e(TAG, "char: " + msg + " barcode weight: " + sb);
     }
 
 }
